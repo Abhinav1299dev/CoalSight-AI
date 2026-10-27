@@ -37,6 +37,10 @@ The objective of this project is to develop a machine learning-based system that
 
 ---
 
+## 📸 Dashboard Preview
+
+![Coal Analytics Dashboard](screenshots/coal-analytics-dashboard.png)
+
 ## ✨ Key Features
 
 ### Machine Learning
