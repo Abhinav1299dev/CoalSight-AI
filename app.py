@@ -30,130 +30,273 @@ st.set_page_config(
 st.markdown(
     """
     <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+    :root {
+        --ink: #14251f;
+        --muted: #687a73;
+        --line: #e1e9e4;
+        --surface: #ffffff;
+        --canvas: #f4f7f5;
+        --green: #13795b;
+        --green-dark: #0e5e46;
+        --green-soft: #e8f5ee;
+    }
+
+    html, body, [class*="css"], .stApp {
+        font-family: 'DM Sans', sans-serif;
+    }
+
     .stApp {
-        background-color: #f5f7fa;
+        background:
+            radial-gradient(circle at 88% 0%, rgba(19,121,91,.07), transparent 26%),
+            var(--canvas);
+        color: var(--ink);
     }
 
     .block-container {
-        max-width: 1450px;
-        padding-top: 2rem;
-        padding-bottom: 2rem;
+        max-width: 1440px;
+        padding-top: 1.6rem;
+        padding-bottom: 2.5rem;
     }
 
     [data-testid="stSidebar"] {
-        background-color: #172333;
+        background: #13251f;
+        border-right: 1px solid rgba(255,255,255,.08);
     }
 
     [data-testid="stSidebar"] * {
-        color: #f1f5f9;
+        color: #e8f1ec;
+    }
+
+    [data-testid="stSidebar"] [data-testid="stMarkdownContainer"] p {
+        color: #b6c9bf;
+        line-height: 1.65;
+    }
+
+    [data-testid="stSidebar"] hr {
+        border-color: rgba(255,255,255,.14);
+    }
+
+    [data-testid="stSidebar"] h2,
+    [data-testid="stSidebar"] h3 {
+        color: #ffffff;
+        font-family: 'Manrope', sans-serif;
+        letter-spacing: -.02em;
     }
 
     .hero {
-        background: linear-gradient(120deg, #172333, #263f55);
-        padding: 30px 32px;
-        border-radius: 16px;
-        margin-bottom: 24px;
-        color: white;
+        position: relative;
+        overflow: hidden;
+        background: linear-gradient(115deg, #13251f 0%, #1b4938 58%, #17694e 100%);
+        padding: 34px 38px;
+        border-radius: 22px;
+        margin: 4px 0 28px 0;
+        color: #ffffff;
+        box-shadow: 0 16px 36px rgba(19, 54, 40, .12);
+    }
+
+    .hero:after {
+        content: "";
+        position: absolute;
+        width: 250px;
+        height: 250px;
+        border: 1px solid rgba(255,255,255,.12);
+        border-radius: 50%;
+        right: -65px;
+        top: -105px;
+        box-shadow: 0 0 0 28px rgba(255,255,255,.035),
+                    0 0 0 58px rgba(255,255,255,.025);
+        pointer-events: none;
+    }
+
+    .eyebrow {
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: .13em;
+        text-transform: uppercase;
+        color: #bcebd4;
+        background: rgba(255,255,255,.09);
+        border: 1px solid rgba(255,255,255,.14);
+        border-radius: 999px;
+        padding: 6px 10px;
+        margin-bottom: 15px;
     }
 
     .hero h1 {
-        font-size: 32px;
-        font-weight: 750;
+        font-family: 'Manrope', sans-serif;
+        font-size: clamp(27px, 3vw, 38px);
+        font-weight: 800;
+        letter-spacing: -.045em;
         margin: 0 0 10px 0;
-        color: white;
+        color: #ffffff;
+        line-height: 1.15;
     }
 
     .hero p {
-        color: #d4e0ec;
+        color: #d3e4da;
         font-size: 15px;
+        max-width: 720px;
         margin: 0;
-        line-height: 1.7;
+        line-height: 1.75;
     }
 
     .section-heading {
-        font-size: 21px;
-        font-weight: 700;
-        color: #172333;
-        margin: 12px 0 5px 0;
+        font-family: 'Manrope', sans-serif;
+        font-size: 22px;
+        font-weight: 800;
+        letter-spacing: -.035em;
+        color: var(--ink);
+        margin: 10px 0 5px 0;
     }
 
     .section-description {
-        color: #64748b;
+        color: var(--muted);
         font-size: 14px;
-        margin-bottom: 20px;
+        margin-bottom: 18px;
+        line-height: 1.6;
     }
 
     .result-card {
-        background: white;
-        border: 1px solid #e2e8f0;
-        border-radius: 14px;
-        padding: 22px;
-        min-height: 125px;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 24px 25px;
+        min-height: 142px;
+        box-shadow: 0 5px 18px rgba(20, 37, 31, .035);
     }
 
     .result-label {
-        font-size: 13px;
-        color: #64748b;
-        margin-bottom: 10px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 13px;
     }
 
     .result-value {
-        font-size: 27px;
-        font-weight: 750;
-        color: #172333;
+        font-family: 'Manrope', sans-serif;
+        font-size: clamp(25px, 3vw, 34px);
+        line-height: 1.2;
+        font-weight: 800;
+        letter-spacing: -.04em;
+        color: var(--ink);
         overflow-wrap: anywhere;
     }
 
     .result-note {
-        color: #64748b;
+        color: var(--muted);
         font-size: 12px;
-        margin-top: 8px;
-    }
-
-    .footer {
-        text-align: center;
-        color: #64748b;
-        font-size: 12px;
-        padding: 20px 0 8px 0;
+        margin-top: 11px;
+        line-height: 1.5;
     }
 
     div[data-testid="stForm"] {
-        background: white;
-        border: 1px solid #e2e8f0;
-        border-radius: 14px;
-        padding: 24px;
+        background: rgba(255,255,255,.92);
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        padding: 26px 28px 22px 28px;
+        box-shadow: 0 8px 26px rgba(20, 37, 31, .04);
+    }
+
+    [data-testid="stTextInput"] label,
+    [data-testid="stSelectbox"] label,
+    [data-testid="stNumberInput"] label {
+        font-weight: 600;
+        color: #263b32;
+        font-size: 13px;
+    }
+
+    [data-testid="stTextInput"] input,
+    [data-testid="stNumberInput"] input {
+        border-radius: 10px;
+        border-color: #d6e2da;
+        min-height: 44px;
+        background: #fbfdfb;
+    }
+
+    [data-testid="stSelectbox"] div[data-baseweb="select"] > div {
+        border-radius: 10px;
+        border-color: #d6e2da;
+        background: #fbfdfb;
+        min-height: 44px;
     }
 
     div.stButton > button[kind="primary"],
     div[data-testid="stFormSubmitButton"] button {
-        background-color: #176b52;
-        border: 1px solid #176b52;
+        background: var(--green);
+        border: 1px solid var(--green);
         color: white;
-        font-weight: 650;
-        min-height: 46px;
-        border-radius: 9px;
+        font-weight: 700;
+        min-height: 48px;
+        border-radius: 11px;
+        transition: all .18s ease;
+        box-shadow: 0 5px 12px rgba(19,121,91,.13);
     }
 
     div.stButton > button[kind="primary"]:hover,
     div[data-testid="stFormSubmitButton"] button:hover {
-        background-color: #125640;
-        border-color: #125640;
+        background: var(--green-dark);
+        border-color: var(--green-dark);
         color: white;
+        transform: translateY(-1px);
+    }
+
+    [data-testid="stDownloadButton"] button {
+        border-radius: 10px;
+        min-height: 44px;
+        font-weight: 700;
+        border-color: #cbdcd1;
     }
 
     [data-testid="stMetric"] {
-        background: white;
-        border: 1px solid #e2e8f0;
+        background: #ffffff;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 17px 18px;
+        box-shadow: 0 4px 14px rgba(20, 37, 31, .025);
+    }
+
+    [data-testid="stMetricLabel"] {
+        color: var(--muted);
+        font-weight: 600;
+    }
+
+    [data-testid="stMetricValue"] {
+        color: var(--ink);
+        font-family: 'Manrope', sans-serif;
+        font-weight: 800;
+        overflow-wrap: anywhere;
+    }
+
+    [data-testid="stAlert"] {
         border-radius: 12px;
-        padding: 18px;
     }
 
-    #MainMenu {
+    h2, h3 {
+        font-family: 'Manrope', sans-serif;
+        letter-spacing: -.025em;
+        color: var(--ink);
+    }
+
+    .footer {
+        text-align: center;
+        color: #7b8b83;
+        font-size: 12px;
+        padding: 16px 0 4px 0;
+    }
+
+    #MainMenu, footer {
         visibility: hidden;
     }
 
-    footer {
-        visibility: hidden;
+    @media (max-width: 768px) {
+        .block-container { padding: 1rem 1rem 2rem 1rem; }
+        .hero { padding: 26px 22px; border-radius: 16px; }
+        div[data-testid="stForm"] { padding: 20px 17px; }
+        .result-card { padding: 20px; }
     }
     </style>
     """,
@@ -202,19 +345,19 @@ except Exception:
 # =========================================================
 
 with st.sidebar:
-    st.markdown("## ⛏️ COAL ANALYTICS")
-    st.caption("MACHINE LEARNING PLATFORM")
+    st.markdown("## ⛏️ Coal Analytics")
+    st.caption("MACHINE LEARNING WORKSPACE")
 
     st.divider()
 
-    st.markdown("### About the Project")
+    st.markdown("### Platform Overview")
     st.write(
         "A machine-learning application designed to estimate "
         "coal production from mine ownership, resource type, "
         "state and geographical coordinates."
     )
 
-    st.markdown("### Model Inputs")
+    st.markdown("### Input Features")
 
     st.markdown(
         """
@@ -227,7 +370,7 @@ with st.sidebar:
 
     st.divider()
 
-    st.markdown("### Important Information")
+    st.markdown("### Model Disclaimer")
     st.caption(
         "Predictions depend on the training data and model "
         "quality. They are estimates, not verified production "
@@ -235,7 +378,7 @@ with st.sidebar:
     )
 
     st.markdown("---")
-    st.caption("Coal Analytics | Academic ML Project")
+    st.caption("Coal Analytics  •  ML Research Project")
 
 
 # =========================================================
@@ -245,11 +388,12 @@ with st.sidebar:
 st.markdown(
     """
     <div class="hero">
+        <div class="eyebrow">Mining intelligence · Predictive analytics</div>
         <h1>Coal Production Predictor</h1>
         <p>
-            Estimate coal production using machine learning
-            and mine-related geographical and ownership features.
-            Enter the mine information below to generate a prediction.
+            Estimate mine production using a machine learning model and key
+            location, resource classification, and ownership features.
+            Enter the mine details below to generate an estimate.
         </p>
     </div>
     """,
@@ -268,7 +412,7 @@ st.markdown(
 
 st.markdown(
     '<div class="section-description">'
-    'Provide the available mine characteristics to estimate production.'
+    "Enter the mine's core characteristics. Fields are grouped to make data entry clear and consistent."
     '</div>',
     unsafe_allow_html=True,
 )
@@ -317,7 +461,7 @@ with st.form("prediction_form"):
         )
 
     submitted = st.form_submit_button(
-        "Generate Production Estimate",
+        "Run Production Prediction  →",
         use_container_width=True,
     )
 
@@ -448,7 +592,7 @@ if submitted:
             # INPUT SUMMARY
             # -------------------------------------------------
 
-            st.markdown("### Input Summary")
+            st.markdown("### Prediction Context")
 
             summary_col1, summary_col2, summary_col3 = st.columns(3)
 
@@ -473,7 +617,7 @@ if submitted:
             # INTERPRETATION
             # -------------------------------------------------
 
-            st.markdown("### Interpretation")
+            st.markdown("### Model Interpretation")
             st.info(interpretation)
 
             st.caption(
@@ -502,7 +646,7 @@ if submitted:
             )
 
             st.download_button(
-                label="Download Prediction Report (CSV)",
+                label="Download Prediction Report · CSV",
                 data=report.to_csv(index=False).encode("utf-8"),
                 file_name="coal_production_prediction.csv",
                 mime="text/csv",
@@ -530,7 +674,7 @@ st.markdown(
     """
     <div class="footer">
         COAL ANALYTICS &nbsp;•&nbsp;
-        Machine Learning Based Production Estimation
+        Machine Learning for Production Estimation
     </div>
     """,
     unsafe_allow_html=True,
